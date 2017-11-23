@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monopoly.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
-</AnchorPane>
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monopoly.FXMLDocumentController">
+   <top>
+      <MenuBar fx:id="menu" focusTraversable="false" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Resolution">
+            <items>
+              <MenuItem fx:id="small" mnemonicParsing="false" onAction="#changeResolution" text="675x700" />
+                  <MenuItem fx:id="medium" mnemonicParsing="false" onAction="#changeResolution" text="775x800" />
+                  <MenuItem fx:id="large" mnemonicParsing="false" onAction="#changeResolution" text="875x900" />
+                  <MenuItem fx:id="huge" mnemonicParsing="false" onAction="#changeResolution" text="975x1000" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text=" Debug Tools">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#printDebugMessage" text="Log" />
+                  <MenuItem mnemonicParsing="false" onAction="#move1" text="Move1" />
+                  <MenuItem mnemonicParsing="false" onAction="#move2" text="Move2" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="X" fx:id="xCoord">
+               <graphic>
+                  <Slider fx:id="x" />
+               </graphic>
+            </Menu>
+            <Menu fx:id="yCoord" mnemonicParsing="false" text="Y">
+               <graphic>
+                  <Slider fx:id="y" />
+               </graphic>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane fx:id="p" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="board" pickOnBounds="true">
+               <image>
+                  <Image url="@../resources/BoardAttempt5.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

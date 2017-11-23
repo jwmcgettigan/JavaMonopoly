@@ -6,24 +6,54 @@
 package monopoly;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 
 /**
- *
- * @author monster
+ * @version 1.1
+ * @author Justin McGettigan
  */
 public class Monopoly extends Application {
     
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = loader.load();
+        FXMLDocumentController controller = loader.getController();
         
-        Scene scene = new Scene(root);
+        
+        Scene scene = new Scene(root, 675, 700);
+        System.out.println("Full-screen property: " + stage.fullScreenProperty());
+        stage.setFullScreenExitHint("Press \"F\" to exit full-screen mode.");
+        //stage.setFullScreenExitKeyCombination(KeyCombination.valueOf("F"));
+        //stage.setFullScreen(true);
+        
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.F)){
+                    if(stage.isFullScreen()){
+                        stage.setFullScreen(false);
+                    } else{
+                        stage.setFullScreen(true);
+                    }
+                }
+            }
+        });
         
         stage.setScene(scene);
+        stage.titleProperty().set("Dungeonopoly - A work in progress");
+        stage.setResizable(false);
+        controller.setStage(stage);
+        //System.out.println("Title: " + controller.getStage().titleProperty().get());
         stage.show();
     }
 
